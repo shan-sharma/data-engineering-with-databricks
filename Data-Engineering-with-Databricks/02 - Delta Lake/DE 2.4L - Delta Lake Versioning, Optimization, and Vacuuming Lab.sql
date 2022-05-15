@@ -173,7 +173,7 @@ SELECT * FROM beans
 CREATE OR REPLACE TEMP VIEW pre_delete_vw AS
 SELECT *
 FROM beans
-VERSION AS OF 1
+VERSION AS OF 4
 
 -- COMMAND ----------
 
@@ -207,7 +207,7 @@ SELECT * FROM pre_delete_vw
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+RESTORE TABLE beans TO VERSION AS OF 5; 
 
 -- COMMAND ----------
 
@@ -219,6 +219,16 @@ SELECT * FROM pre_delete_vw
 -- COMMAND ----------
 
 DESCRIBE HISTORY beans
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC spark.sql(f"DESCRIBE HISTORY beans").select("operation").first()[0]
+
+-- COMMAND ----------
+
+-- MAGIC %python 
+-- MAGIC spark.table("beans").count() 
 
 -- COMMAND ----------
 
@@ -242,7 +252,9 @@ DESCRIBE HISTORY beans
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+OPTIMIZE beans
+--WHERE predicate
+ZORDER BY (name);
 
 -- COMMAND ----------
 
@@ -302,6 +314,19 @@ SET spark.databricks.delta.vacuum.logging.enabled = true;
 
 -- COMMAND ----------
 
+DESCRIBE EXTENDED beans;
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC dbutils.fs.ls("/user/odl_user_609769@databrickslabs.com/dbacademy/dewd/2.4l/2_4l.db/beans")
+
+-- COMMAND ----------
+
+
+
+-- COMMAND ----------
+
 VACUUM beans RETAIN 0 HOURS DRY RUN
 
 -- COMMAND ----------
@@ -318,6 +343,11 @@ VACUUM beans RETAIN 0 HOURS DRY RUN
 -- COMMAND ----------
 
 VACUUM beans RETAIN 0 HOURS
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC dbutils.fs.ls("/user/odl_user_609769@databrickslabs.com/dbacademy/dewd/2.4l/2_4l.db/beans")
 
 -- COMMAND ----------
 
@@ -366,7 +396,7 @@ SELECT * FROM beans
 
 -- COMMAND ----------
 
--- SELECT * FROM beans@v1
+SELECT * FROM beans@v1
 
 -- COMMAND ----------
 
