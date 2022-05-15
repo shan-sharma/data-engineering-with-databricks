@@ -98,6 +98,10 @@
 
 -- COMMAND ----------
 
+SELECT '${da.paths.datasets}'
+
+-- COMMAND ----------
+
 SELECT * FROM json.`${da.paths.datasets}/raw/events-kafka/001.json`
 
 -- COMMAND ----------

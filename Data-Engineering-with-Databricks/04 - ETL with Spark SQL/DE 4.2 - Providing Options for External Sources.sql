@@ -226,6 +226,12 @@ SELECT COUNT(*) FROM sales_csv
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC ##Virtual Schema
+-- MAGIC ###Creating Table in databricks without actually moving data
+
+-- COMMAND ----------
+
 DROP TABLE IF EXISTS users_jdbc;
 
 CREATE TABLE users_jdbc

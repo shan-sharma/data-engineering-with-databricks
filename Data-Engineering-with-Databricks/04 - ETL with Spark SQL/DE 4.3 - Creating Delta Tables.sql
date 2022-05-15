@@ -208,8 +208,10 @@ SELECT * FROM purchase_dates
 
 -- COMMAND ----------
 
--- INSERT INTO purchase_dates VALUES
--- (1, 600000000, 42.0, "2020-06-18")
+ 
+ 
+ --INSERT INTO purchase_dates VALUES (1, 600000000, 42.0, "2020-06-18")
+ 
 
 -- COMMAND ----------
 
@@ -331,6 +333,10 @@ DEEP CLONE purchases
 
 -- COMMAND ----------
 
+DESCRIBE HISTORY purchases_clone;
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC 
@@ -342,6 +348,13 @@ DEEP CLONE purchases
 
 CREATE OR REPLACE TABLE purchases_shallow_clone
 SHALLOW CLONE purchases
+
+-- COMMAND ----------
+
+--DESCRIBE HISTORY purchases_shallow_clone;
+--DESCRIBE DETAIL purchases_shallow_clone;
+DESCRIBE EXTENDED purchases_shallow_clone;
+
 
 -- COMMAND ----------
 
